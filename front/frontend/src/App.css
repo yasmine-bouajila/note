@@ -136,6 +136,7 @@ button.danger {
   padding: 6px 12px;
   font-size: 0.78rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .badge.low {
@@ -188,6 +189,46 @@ button.danger {
   color: #6b7280;
   font-size: 0.95rem;
 }
+
+/* ── Barre de filtres ─────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+}
+
+.filter-btn {
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: #f3f4f6;
+  color: #6b7280;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filter-btn:hover {
+  opacity: 0.85;
+}
+
+/* Toutes */
+.filter-btn--toutes { border-color: #6b7280; color: #6b7280; }
+.filter-btn--toutes.active { background: #6b7280; color: #fff; }
+
+/* Haute */
+.filter-btn--haute { border-color: #dc2626; color: #dc2626; }
+.filter-btn--haute.active { background: #dc2626; color: #fff; }
+
+/* Moyenne */
+.filter-btn--moyenne { border-color: #d97706; color: #d97706; }
+.filter-btn--moyenne.active { background: #d97706; color: #fff; }
+
+/* Basse */
+.filter-btn--basse { border-color: #16a34a; color: #16a34a; }
+.filter-btn--basse.active { background: #16a34a; color: #fff; }
 
 /* Login et Register Pages */
 .auth-page {
@@ -285,12 +326,21 @@ button.danger {
   .auth-card {
     padding: 24px;
   }
-  
+
   .page-title {
     font-size: 1.4rem;
   }
-  
+
   .note-item {
     padding: 16px;
+  }
+
+  .filter-bar {
+    gap: 6px;
+  }
+
+  .filter-btn {
+    padding: 5px 13px;
+    font-size: 0.78rem;
   }
 }
