@@ -1,6 +1,16 @@
+import { useState } from 'react';
 import NoteItem from './NoteItem';
 
+const PRIORITIES = ['Toutes', 'Haute', 'Moyenne', 'Basse'];
+
 export default function NoteList({ notes, onEdit, onDelete }) {
+  const [filter, setFilter] = useState('Toutes');
+
+  const filteredNotes =
+    filter === 'Toutes'
+      ? notes
+      : notes.filter((note) => note.priority === filter);
+
   if (!notes?.length) {
     return (
       <div className="card">
@@ -14,13 +24,32 @@ export default function NoteList({ notes, onEdit, onDelete }) {
     <div className="card">
       <div className="top-actions" style={{ justifyContent: 'space-between' }}>
         <h2>Mes notes</h2>
-        <span>{notes.length} note(s)</span>
+        <span>{filteredNotes.length} note(s)</span>
       </div>
-      <div className="note-grid">
-        {notes.map((note) => (
-          <NoteItem key={note.id} note={note} onEdit={onEdit} onDelete={onDelete} />
+
+      {/* Boutons de filtre */}
+      <div className="filter-bar">
+        {PRIORITIES.map((p) => (
+          <button
+            key={p}
+            type="button"
+            className={`filter-btn filter-btn--${p.toLowerCase()} ${filter === p ? 'active' : ''}`}
+            onClick={() => setFilter(p)}
+          >
+            {p}
+          </button>
         ))}
       </div>
+
+      {filteredNotes.length === 0 ? (
+        <p>Aucune note avec la priorité « {filter} ».</p>
+      ) : (
+        <div className="note-grid">
+          {filteredNotes.map((note) => (
+            <NoteItem key={note.id} note={note} onEdit={onEdit} onDelete={onDelete} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

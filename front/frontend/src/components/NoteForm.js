@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const initialForm = {
   title: '',
   content: '',
-  priority: '',
+  priority: 'Basse',
 };
 
 export default function NoteForm({ note, onSave, onCancel, feedback }) {
@@ -15,7 +15,7 @@ export default function NoteForm({ note, onSave, onCancel, feedback }) {
       setForm({
         title: note.title,
         content: note.content || '',
-        priority: note.priority || '',
+        priority: note.priority || 'Basse',
       });
       setError('');
     } else {
@@ -37,7 +37,6 @@ export default function NoteForm({ note, onSave, onCancel, feedback }) {
       return;
     }
 
-    console.log('Submitting form', form);
     if (note) {
       onSave({ ...note, ...form });
     } else {
@@ -49,35 +48,26 @@ export default function NoteForm({ note, onSave, onCancel, feedback }) {
     <div className="card">
       <h2>{note ? 'Modifier la note' : 'Ajouter une note'}</h2>
 
-      <p className="small-text">
-        Titre requis, priorité et contenu facultatif.
-      </p>
+      <p className="small-text">Titre requis, priorité et contenu facultatif.</p>
 
       {error && <div className="alert error">{error}</div>}
 
       {feedback && (
-        <div className={`alert ${feedback.type}`}>
-          {feedback.text}
-        </div>
+        <div className={`alert ${feedback.type}`}>{feedback.text}</div>
       )}
 
       <form className="form-row" onSubmit={handleSubmit}>
-        
         <input
           type="text"
           placeholder="Titre"
           value={form.title}
-          onChange={(event) =>
-            setForm({ ...form, title: event.target.value })
-          }
+          onChange={(event) => setForm({ ...form, title: event.target.value })}
           maxLength={50}
         />
 
         <select
           value={form.priority}
-          onChange={(event) =>
-            setForm({ ...form, priority: event.target.value })
-          }
+          onChange={(event) => setForm({ ...form, priority: event.target.value })}
         >
           <option value="Basse">Basse</option>
           <option value="Moyenne">Moyenne</option>
@@ -88,9 +78,7 @@ export default function NoteForm({ note, onSave, onCancel, feedback }) {
           rows={6}
           placeholder="Contenu de la note"
           value={form.content}
-          onChange={(event) =>
-            setForm({ ...form, content: event.target.value })
-          }
+          onChange={(event) => setForm({ ...form, content: event.target.value })}
         />
 
         <div className="top-actions">
@@ -99,11 +87,7 @@ export default function NoteForm({ note, onSave, onCancel, feedback }) {
           </button>
 
           {note && (
-            <button
-              type="button"
-              className="secondary"
-              onClick={onCancel}
-            >
+            <button type="button" className="secondary" onClick={onCancel}>
               Annuler
             </button>
           )}
